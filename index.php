@@ -46,7 +46,7 @@ else
 	
 	<form action=".">
 	<div class="row">
-  <input type="search" style="width:80%;" id="lsid" name="lsid" placeholder="urn:lsid:organismnames.com:name:1776318"/>
+  <input type="search" style="width:80%;" id="lsid" name="lsid" placeholder="urn:lsid:marinespecies.org:taxname:1311580"/>
   <input type="hidden" name="format" value="jsonld" />
   <input class="primary" type="submit" value="Resolve" />
   </div>
@@ -67,10 +67,10 @@ else
 	
 	<table>
 	<tr><th></th><th>Source</th><th>Example</th></tr>
-	<tr><td><img width="48" src="images/ion.svg"></td><td>Index of Organisms Names (ION)</td><td><a href="./urn:lsid:organismnames.com:name:1776318/jsonld">urn:lsid:organismnames.com:name:1776318</a></td></tr>
+<!--	<tr><td><img width="48" src="images/ion.svg"></td><td>Index of Organisms Names (ION)</td><td><a href="./urn:lsid:organismnames.com:name:1776318/jsonld">urn:lsid:organismnames.com:name:1776318</a></td></tr>
 	<tr><td><img width="48" src="images/ipni.svg"></td><td>International Plant Names Index (IPNI)</td><td><a href="./urn:lsid:ipni.org:names:298405-1/jsonld">urn:lsid:ipni.org:names:298405-1</a></td></tr>
-	<tr><td><img width="48" src="images/if.svg"></td><td>Index Fungorum</td><td><a href="./urn:lsid:indexfungorum.org:names:356289/jsonld">urn:lsid:indexfungorum.org:names:356289</a></td></tr>
-	<!--<tr><td><img width="48" src="images/worms.svg"></td><td>World Register of Marine Species (WoRMS)</td><td><a href="./urn:lsid:marinespecies.org:taxname:1311580/jsonld">urn:lsid:marinespecies.org:taxname:1311580</a></td></tr> -->
+	<tr><td><img width="48" src="images/if.svg"></td><td>Index Fungorum</td><td><a href="./urn:lsid:indexfungorum.org:names:356289/jsonld">urn:lsid:indexfungorum.org:names:356289</a></td></tr> -->
+	<tr><td><img width="48" src="images/worms.svg"></td><td>World Register of Marine Species (WoRMS)</td><td><a href="./urn:lsid:marinespecies.org:taxname:1311580/jsonld">urn:lsid:marinespecies.org:taxname:1311580</a></td></tr> 
 	</table>
 		
 	<h2>How to resolve a LSID</h2>
