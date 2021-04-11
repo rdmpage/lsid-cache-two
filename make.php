@@ -30,20 +30,23 @@ $basedir = $caches[$database];
 
 $files1 = scandir($basedir);
 
-// $files1 = array('1311');
+$files1 = array('1311');
 
 foreach ($files1 as $directory)
 {
+	echo "Level 1 $directory\n";
+
+
 	// modulo 1000 directories
 	if (preg_match('/^\d+$/', $directory))
 	{	
 		$files2 = scandir($basedir . '/' . $directory);
-
+		
 		// individual XML files
 		
 		$contents = '';
 		foreach ($files2 as $filename)
-		{
+		{		
 			if (preg_match('/\.xml$/', $filename))
 			{	
 				$full_filename = $basedir . '/' . $directory . '/' . $filename;
@@ -57,8 +60,7 @@ foreach ($files1 as $directory)
 			}
 		}
 		
-		// Store archive in modulo 10000 directory
-				
+		// Store archive in modulo 10000 directory				
 		$destination_dir = floor($directory / 10);
 		$path = 'lsid/' . join('/', $domain_path[$database]) . '/' . $destination_dir;
 		
