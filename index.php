@@ -25,7 +25,7 @@ else
 {
 	// No LSID so have welcome page here
 	
-	$example_lsid = 'urn:lsid:organismnames.com:name:1776318';
+	$example_lsid = 'urn:lsid:marinespecies.org:taxname:1311580';
 ?>
 
 <html>
@@ -71,6 +71,7 @@ else
 	<tr><td><img width="48" src="images/ipni.svg"></td><td>International Plant Names Index (IPNI)</td><td><a href="./urn:lsid:ipni.org:names:298405-1/jsonld">urn:lsid:ipni.org:names:298405-1</a></td></tr>
 	<tr><td><img width="48" src="images/if.svg"></td><td>Index Fungorum</td><td><a href="./urn:lsid:indexfungorum.org:names:356289/jsonld">urn:lsid:indexfungorum.org:names:356289</a></td></tr> -->
 	<tr><td><img width="48" src="images/worms.svg"></td><td>World Register of Marine Species (WoRMS)</td><td><a href="./urn:lsid:marinespecies.org:taxname:1311580/jsonld">urn:lsid:marinespecies.org:taxname:1311580</a></td></tr> 
+	<tr><td><img width="48" src="images/zoobank.svg"></td><td>ZooBank</td><td><a href="./urn:lsid:zoobank.org:act:BE79F9B4-1D49-415D-A250-6FB951CF81F6/jsonld">urn:lsid:zoobank.org:act:BE79F9B4-1D49-415D-A250-6FB951CF81F6</a></td></tr> 
 	</table>
 		
 	<h2>How to resolve a LSID</h2>
@@ -126,7 +127,8 @@ else
 // try to get LSID from disk
 $xml = '';
 
-if (preg_match('/urn:lsid:(?<domain>[^:]+):(?<type>[^:]+):(?<id>.*)/', $lsid, $m))
+// Integer-based id
+if (preg_match('/urn:lsid:(?<domain>[^:]+):(?<type>[^:]+):(?<id>\d+(-\d+)?)/', $lsid, $m))
 {
 	$path_array = explode(".", $m['domain']);
 	$path_array = array_reverse($path_array);
@@ -143,6 +145,48 @@ if (preg_match('/urn:lsid:(?<domain>[^:]+):(?<type>[^:]+):(?<id>.*)/', $lsid, $m
 	$gz_id = floor($integer_id / 1000);
 	
 	$path = 'lsid/' . join('/', $path_array) . '/' . $dir_id . '/' . $gz_id . '.xml.gz';
+	
+	if (file_exists($path))
+	{
+		// Explode archive, find line with record for LSID	
+		$lines = gzfile($path);
+	
+		//print_r($lines);
+
+		$xml = '';
+
+		$n = count($lines);
+
+		for ($i = 0;$i < $n; $i++)
+		{
+			// Need to handle cases (e.g., ION) where the URI is not a LSID but simply the integer id
+			if (preg_match('/about=\s*"(' . $lsid . '|' . $id . ')"/', $lines[$i]))
+			{
+				$xml = $lines[$i];
+				break;
+			}
+		}
+	}
+	
+}
+
+// string-based id
+if (preg_match('/urn:lsid:(?<domain>[^:]+):(?<type>[^:]+):(?<id>[0-9A-Z]+(-[0-9A-Z]+)+)/', $lsid, $m))
+{
+	$path_array = explode(".", $m['domain']);
+	$path_array = array_reverse($path_array);
+	$path_array[] = $m['type'];
+		
+	// local identifier
+	$id = $m['id'];	
+	
+	preg_match('/^(..)(..)(..)/', $id, $matches);
+		
+	// map to location of archive
+	$dir_id = strtolower($matches[1]);
+	$gz_id = $dir_id;
+	
+	$path = 'lsid/' . join('/', $path_array) . '/' . $gz_id . '.xml.gz';
 	
 	if (file_exists($path))
 	{
