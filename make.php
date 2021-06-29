@@ -7,6 +7,7 @@ $caches = array(
 	'ipni_names' => '/Volumes/Samsung_T5/rdf-archive/ipni/rdf',
 	'ipni_authors' => '/Volumes/Samsung_T5/rdf-archive/ipni/authors',
 	'ion' => '/Volumes/Samsung_T5/rdf-archive/ion/rdf',
+	'nz' => '/Users/rpage/Sites/nomenclator-zoologicus/lsid',
 	'worms' => '/Volumes/Samsung_T5/rdf-archive/worms/rdf',
 	'wsc' => '/Volumes/Samsung_T5/rdf-archive/nmbe/rdf',
 );	
@@ -16,6 +17,7 @@ $domain_path = array(
 	'indexfungorum' => array('org', 'indexfungorum', 'names'),
 	'ion' => array('com', 'organismnames', 'name'),
 	'ipni_names' => array('org', 'ipni', 'names'),
+	'nz' => array('org', 'ubio', 'nz'),
 	'worms' => array('org', 'marinespecies', 'taxname'),
 );
 
@@ -25,12 +27,14 @@ $database = 'ipni_names';
 //$database = 'ion';
 $database = 'worms';
 
+$database = 'nz';
+
 // Fetch XML files
 $basedir = $caches[$database];
 
 $files1 = scandir($basedir);
 
-$files1 = array('1311');
+//$files1 = array('162');
 
 foreach ($files1 as $directory)
 {
